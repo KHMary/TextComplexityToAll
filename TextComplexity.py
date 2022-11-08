@@ -27,19 +27,19 @@ class TextComplexityToAll:
         words = len(text_dots.split())
         n_dots = text_dots.count('.')
 
-        def long_words(example):
-            example = example.lower()
-            text_update = example.split()
-            list = []
-            for words in text_update:
-                b = 0
-                for l in words:
-                    b += 1 if l in 'аоэиуыеёюя' else 0
-                if b >= 3:
-                    list.append(words)
-            length = len(list)
+     def long_words(example):
+         example = example.lower()
+         text_update = example.split()
+         list = []
+         for words in text_update:
+              b = 0
+              for l in words:
+                 b += 1 if l in 'аоэиуыеёюя' else 0
+              if b >= 3:
+                  list.append(words)
+          length = len(list)
 
-            return length
+           return length
         return words, long_words(example), f"{round((long_words(example) / words) * 100)}%"
 
     def number_of_sentences(example):
@@ -99,7 +99,7 @@ class TextComplexityToAll:
 
         return res
 
-        def number_of_unique_words(example):
+     def number_of_unique_words(example):
         for p in example:
             if p in string.punctuation:
                 example = example.replace(p, '')
