@@ -98,3 +98,45 @@ class TextComplexityToAll:
             res.append(p.normal_form)
 
         return res
+
+        def number_of_unique_words(example):
+        for p in example:
+            if p in string.punctuation:
+                example = example.replace(p, '')
+        example.strip()
+        unique_words = {}
+        for key in example.split():
+            unique_words[key] = unique_words.setdefault(key, 0) + 1
+        return len(list(filter(lambda x: unique_words[x] == 1, unique_words)))
+
+    def frequency_list_match_sharov(example):
+        with open('frequencySharov.txt', mode='r', encoding='UTF-8') as l:
+            list = l.read()
+            freq = set(example.split())
+            words_1 = [f'{word} == {example.count(word)}' for word in freq if word in list]
+            length_words = len(words_1)
+        return length_words, words_1
+
+    def frequency_list_match_sharov_without_auxiliary_parts_of_speech(example):
+        with open('FrequencySharov_no_auxiliary.txt', mode='r', encoding='UTF-8') as l:
+            list = l.read()
+            freq = set(example.split())
+            words_1 = [f'{word} == {example.count(word)}' for word in freq if word in list]
+            length_words = len(words_1)
+        return length_words, words_1
+
+    def frequency_list_match_russian_national_corpus(example):
+        with open('RNC.txt', mode='r', encoding='UTF-8') as l:
+            list = l.read()
+            freq = set(example.split())
+            words_1 = [f'{word} == {example.count(word)}' for word in freq if word in list]
+            length_words = len(words_1)
+        return length_words, words_1
+
+    def frequency_list_match_russian_national_corpus_no_auxiliary(example):
+        with open('RNC_no_auxiliary.txt', mode='r', encoding='UTF-8') as l:
+            list = l.read()
+            freq = set(example.split())
+            words_1 = [f'{word} == {example.count(word)}' for word in freq if word in list]
+            length_words = len(words_1)
+        return length_words, words_1
