@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+</head>
+<body>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            background-color: azure;
+            margin-top : 20px;
+        }
+        * {
+            text-align: center;
+            margin: auto;
+            vertical-align: middle;
+            padding: 10px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif
+        }
+        body {
+            background-color: bisque;
+        }
+        .first-row {
+            background-color: rgb(128, 146, 192);
+        }
+        .first-col {
+            background-color: rgb(128, 192, 166);
+        }
+
+        th:hover {
+            background-color: pink;
+        }
+    </style>
+    <h1>Анализ текста</h1>
+    {{test}}
+    <form action="" method="post">
+        {% csrf_token %}
+        <div>
+            <textarea type="text" name="text" id="text" placeholder="Введите текст"></textarea>
+            <button type="submit">Анализ</button>
+        </div>
+    </form>
+    {% if text %}
+    <h2>{{text}}</h2>
+   <h3>морфологические признаки</h3>
+    <table>
+        <tr class="first-row">
+            <th class="first-row"></th>
+            {% for w in words %}
+            <th class="first-row">{{ w }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th class="first-col">Части речи</th>
+            {% for p in pos %}
+            <th>{{ p }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th class="first-col">Одушевленность</th>
+            {% for a in animacy %}
+            <th>{{ a }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th class="first-col">Значения вида</th>
+            {% for a in aspect %}
+            <th>{{ a }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th class="first-col">Время</th>
+            {% for t in tense %}
+
+            <th>{{ t }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th class="first-col">Падеж</th>
+            {% for c in case %}
+
+            <th>{{ c }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th class="first-col">Пол</th>
+            {% for g in gender %}
+
+            <th>{{ g }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th class="first-col">Наклонение</th>
+            {% for m in mood %}
+
+            <th>{{ m }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th class="first-col">Число</th>
+            {% for n in number %}
+
+            <th>{{ n }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th class="first-col">Лицо</th>
+            {% for p in person %}
+
+            <th>{{ p }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th class="first-col">Переходность</th>
+            {% for t in transitivity %}
+
+            <th>{{ t }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th class="first-col">Залог</th>
+            {% for t in voice %}
+
+            <th>{{ t }}</th>
+            {% endfor %}
+        </tr>
+    </table>
+
+   <h3>лексические признаки</h3>
+    <table>
+        <tr>
+            <th class="first-col">количество букв</th>
+            <th>{{ letters }}</th>
+        </tr>
+
+        <tr >
+            <th class="first-col">количество слогов</th>
+            <th>{{ syllables }}</th>
+        </tr>
+
+        <tr >
+            <th class="first-col">количество длинных слов (более 3-х слогов)</th>
+            <th>{{ lwords }}</th>
+        </tr>
+
+        <tr >
+            <th class="first-col">количество слов</th>
+            <th>{{ numbwords }}</th>
+        </tr>
+
+        <tr >
+            <th class="first-col">средняя длина слова в предложении</th>
+            <th>{{ avgword }}</th>
+        </tr>
+
+        <tr >
+            <th class="first-col">частотность слов в тексте</th>
+            <th>{{ wfrequency }}</th>
+        </tr>
+
+        <tr >
+            <th class="first-col">уникальные слова</th>
+            <th>{{ finduniquewords }}</th>
+        </tr>
+
+        <tr >
+            <th class="first-col">количество уникальных слов</th>
+            <th>{{ numberuniquewords }}</th>
+        </tr>
+
+        <tr >
+            <th class="first-col">частотный список О. Н. Ляшевской, С. А. Шарова:</th>
+            <th>{{ freqlistSharov }}</th>
+        </tr>
+
+        <tr >
+            <th class="first-col">частотный список (без служебных частей речи):</th>
+            <th>{{ freqlistnoauxSharov }}</th>
+        </tr>
+
+        <tr >
+            <th class="first-col">частотный список Национального корпуса русского языка:</th>
+            <th>{{ freqlistRNC }}</th>
+        </tr>
+
+        <tr >
+            <th class="first-col">частотный список НКРЯ (без служебных частей речи):</th>
+            <th>{{ freqlistRNCnoaux }}</th>
+        </tr>
+
+        <tr >
+            <th class="first-col">частотный словарь русского языка:</th>
+            <th>{{ freqlistShU }}</th>
+        </tr>
+
+        <tr >
+            <th class="first-col">частотный словарь русского языка (без служебных частей речи):</th>
+            <th>{{ freqlistShUnoaux }}</th>
+        </tr>
+
+        <tr >
+            <th class="first-col">TTR</th>
+            <th>{{ ttr1 }}</th>
+        </tr>
+
+        <tr >
+            <th class="first-col">Maas TTR</th>
+            <th>{{ maas_ttr1 }}</th>
+        </tr>
+
+         <tr >
+            <th class="first-col">mattr</th>
+            <th>{{ mattr1 }}</th>
+        </tr>
+
+    </table>
+
+
+       <h3>синтаксические признаки</h3>
+    <table>
+
+        <tr >
+            <th class="first-col">количество предложений</th>
+            <th>{{ numbsentences }}</th>
+        </tr>
+
+         <tr >
+            <th class="first-col">средняя длина предложения</th>
+            <th>{{ avgsentences }}</th>
+        </tr>
+
+     </table>
+
+
+    {% endif %}
+</body>
+</html>
